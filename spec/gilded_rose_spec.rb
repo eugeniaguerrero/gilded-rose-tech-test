@@ -10,24 +10,42 @@ describe GildedRose do
     end
   end
 
-  context 'Aged Brie' do
-    it 'increases in quality' do
-      items = [Item.new("Aged Brie", 2, 0)]
+#### NORMAL ITEMS ####
+  context 'normal item' do
+    it 'before sell-in date' do
+      items = [Item.new("normal", 10, 20)]
       GildedRose.new(items).update_quality()
-      expect(items[0].quality).to eq 1
+      expect(items[0].quality).to eq 19
     end
-    it 'decreases in sell in value after one day' do
-      items = [Item.new("Aged Brie", 2, 0)]
+    it 'before sell-in date with max quality' do
+      items = [Item.new("normal", 10, 50)]
       GildedRose.new(items).update_quality()
-      expect(items[0].sell_in).to eq 1
+      expect(items[0].quality).to eq 49
     end
-    it 'decreases in sell in value after two days' do
-      items = [Item.new("Aged Brie", 2, 0)]
+    it 'on sell-in date' do
+      items = [Item.new("normal", 0, 10)]
       GildedRose.new(items).update_quality()
       GildedRose.new(items).update_quality()
-      expect(items[0].sell_in).to eq 0
+      expect(items[0].quality).to eq 6
+    end
+    it 'on sell-in date near max quality' do
+      items = [Item.new("normal", 0, 49)]
+      GildedRose.new(items).update_quality()
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 45
+    end
+    it 'after sell-in date' do
+      items = [Item.new("normal", -1, 45)]
+      GildedRose.new(items).update_quality()
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 41
+    end
+    it 'after sell-in date with max quality' do
+      items = [Item.new("normal", -2, 50)]
+      GildedRose.new(items).update_quality()
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 46
     end
   end
-
 
 end
