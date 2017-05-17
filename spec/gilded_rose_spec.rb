@@ -44,4 +44,47 @@ describe GildedRose do
     end
   end
 
+  #### AGED BRIE ####
+    context 'Aged Brie' do
+      it 'before sell-in date' do
+        items = [Item.new("Aged Brie", 10, 0)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].quality).to eq 1
+      end
+      it 'before sell-in date with max quality' do
+        items = [Item.new("Aged Brie", 10, 50)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].quality).to eq 50
+      end
+      it 'on sell-in date' do
+        items = [Item.new("Aged Brie", 0, 2)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].quality).to eq 4
+        expect(items[0].sell_in).to eq -1
+      end
+      it 'on sell-in date near max quality' do
+        items = [Item.new("Aged Brie", 0, 49)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].quality).to eq 50
+      end
+      it 'after sell-in date' do
+        items = [Item.new("Aged Brie", -2, 0)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].quality).to eq 2
+      end
+      it 'after sell-in date with max quality' do
+        items = [Item.new("Aged Brie", -2, 50)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].quality).to eq 50
+      end
+    end
+
+  #### SULFURAS ####
+
+  #### BACKSTAGE PASSES ####
+
+  #### CONJURED ITEMS ####
+
+
+
 end
