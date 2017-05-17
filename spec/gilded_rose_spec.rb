@@ -25,26 +25,22 @@ describe GildedRose do
     it 'on sell-in date' do
       items = [Item.new("normal", 0, 10)]
       GildedRose.new(items).update_quality()
-      GildedRose.new(items).update_quality()
-      expect(items[0].quality).to eq 6
+      expect(items[0].quality).to eq 8
     end
     it 'on sell-in date near max quality' do
       items = [Item.new("normal", 0, 49)]
       GildedRose.new(items).update_quality()
-      GildedRose.new(items).update_quality()
-      expect(items[0].quality).to eq 45
+      expect(items[0].quality).to eq 47
     end
     it 'after sell-in date' do
       items = [Item.new("normal", -1, 45)]
       GildedRose.new(items).update_quality()
-      GildedRose.new(items).update_quality()
-      expect(items[0].quality).to eq 41
+      expect(items[0].quality).to eq 43
     end
     it 'after sell-in date with max quality' do
       items = [Item.new("normal", -2, 50)]
       GildedRose.new(items).update_quality()
-      GildedRose.new(items).update_quality()
-      expect(items[0].quality).to eq 46
+      expect(items[0].quality).to eq 48
     end
   end
 
