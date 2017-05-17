@@ -127,7 +127,32 @@ describe GildedRose do
   end
 
   #### CONJURED ITEMS ####
-
-
+  context 'Conjured' do
+    it 'before sell-in date' do
+      items = [Item.new("Conjured", 10, 6)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 4
+    end
+    it 'before sell-in date with max quality' do
+      items = [Item.new("Conjured", 10, 50)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 48
+    end
+    it 'on sell-in date' do
+      items = [Item.new("Conjured", 0, 2)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 0
+    end
+    it 'on sell-in date near max quality' do
+      items = [Item.new("Conjured", 0, 48)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 46
+    end
+    it 'after sell-in date' do
+      items = [Item.new("Conjured", 0, 30)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 28
+    end
+  end
 
 end
