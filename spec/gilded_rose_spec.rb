@@ -78,10 +78,8 @@ describe GildedRose do
       end
     end
 
-  #### SULFURAS ####
-
   #### BACKSTAGE PASSES ####
-  context 'Backstage passes' do
+  context 'Backstage passes to a TAFKAL80ETC concert' do
     it 'before sell-in date' do
       items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 10, 0)]
       GildedRose.new(items).update_quality()
@@ -108,6 +106,26 @@ describe GildedRose do
       expect(items[0].quality).to eq 0
     end
   end
+
+  #### SULFURAS ####
+  context 'Sulfuras, Hand of Ragnaros' do
+    it 'before sell-in date' do
+      items = [Item.new("Sulfuras, Hand of Ragnaros", 10, 80)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 80
+    end
+    it 'on sell-in date' do
+      items = [Item.new("Sulfuras, Hand of Ragnaros", 0, 80)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 80
+    end
+    it 'after sell-in date' do
+      items = [Item.new("Sulfuras, Hand of Ragnaros", -1, 80)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 80
+    end
+  end
+
   #### CONJURED ITEMS ####
 
 
