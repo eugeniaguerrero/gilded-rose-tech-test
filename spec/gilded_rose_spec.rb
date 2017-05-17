@@ -60,7 +60,6 @@ describe GildedRose do
         items = [Item.new("Aged Brie", 0, 2)]
         GildedRose.new(items).update_quality()
         expect(items[0].quality).to eq 4
-        expect(items[0].sell_in).to eq -1
       end
       it 'on sell-in date near max quality' do
         items = [Item.new("Aged Brie", 0, 49)]
@@ -82,7 +81,33 @@ describe GildedRose do
   #### SULFURAS ####
 
   #### BACKSTAGE PASSES ####
-
+  context 'Backstage passes' do
+    it 'before sell-in date' do
+      items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 10, 0)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 2
+    end
+    it 'before sell-in date with max quality' do
+      items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 10, 50)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 50
+    end
+    it 'on sell-in date' do
+      items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 0, 2)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 0
+    end
+    it 'on sell-in date near max quality' do
+      items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 0, 49)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 0
+    end
+    it 'after sell-in date' do
+      items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 0, 50)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 0
+    end
+  end
   #### CONJURED ITEMS ####
 
 
